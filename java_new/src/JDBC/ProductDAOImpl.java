@@ -87,4 +87,38 @@ public class ProductDAOImpl implements DAO {
 		return null;
 	}
 
+	@Override
+	public int update(Product p) {
+		System.out.println("modify_DAO success!!");
+		query = "update product set pname=?,price=?,regdate=now(),madeby=? where pno=?";
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setString(1, p.getPname());
+			pst.setInt(2, p.getPrice());
+			pst.setString(3, p.getMadeby());
+			pst.setInt(4, p.getPno());
+			return pst.executeUpdate();
+		} catch (SQLException e) {
+			// conn연결 오류, SQL 구문 오류
+			System.out.println("update Error!!");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public int delete(int pno) {
+		System.out.println("remove_DAO success!!");
+		query = "delete from product where pno=?";
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setInt(1, pno);
+			return pst.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("delete Error!!");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

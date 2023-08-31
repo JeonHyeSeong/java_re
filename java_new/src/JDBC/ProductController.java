@@ -45,13 +45,35 @@ public class ProductController {
 		}
 		
 	}
+	
+	/* select 리턴이 있음. Product 객체 리턴
+	 * insert(등록), update(수정), delete(삭제)
+	 * 리턴은 1개의 값이 실행되었습니다. => 1
+	 * 실행이 안되었을때 => 0
+	 * */
 
 	private void remove() {
-		
+		System.out.print("삭제할 상품번호 > ");
+		int pno = scan.nextInt();
+		int isOk = svc.remove(pno);
+		System.out.println("상품삭제 "+((isOk > 0)? "성공" : "실패"));
 	}
 
 	private void modify() {
-		
+		// pno에 해당하는 객체를 수정(pname, price, madeby)
+		System.out.print("상품번호 > ");
+		int pno = scan.nextInt();
+		System.out.print("변경할 상품명 > ");
+		scan.nextLine();
+		String pname = scan.nextLine();
+		System.out.print("변경할 상품가격 > ");
+		int price = scan.nextInt();
+		System.out.print("변경할 상품상세내용 > ");
+		scan.nextLine();
+		String madeby = scan.nextLine();
+		Product p = new Product(pno, pname, price, madeby);
+		int isOk = svc.modify(p);
+		System.out.println("상품수정 "+((isOk > 0)? "성공" : "실패"));
 	}
 
 	private void detail() {
@@ -74,7 +96,8 @@ public class ProductController {
 	private void register() {
 		// 상품등록
 		System.out.print("상품이름 > ");
-		String pname = scan.next();
+		scan.nextLine();
+		String pname = scan.nextLine();
 		System.out.print("상품가격 > ");
 		int price = scan.nextInt();
 		System.out.print("상품상세내용 > ");
